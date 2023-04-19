@@ -11,6 +11,8 @@ import { AuthProvider } from "./context/auth";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./components/Routes/PrivetRoutes";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import PrivetAdminroute from "./components/Routes/PrivetAdminDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,7 +27,10 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
           <Route path="/dashboard" element={<PrivateRoute />}>
-            <Route path="" element={<Dashboard />} />
+            <Route path="user" element={<Dashboard />} />
+          </Route>
+          <Route path="/dashboard" element={<PrivetAdminroute />}>
+            <Route path="admin" element={<AdminDashboard />} />
           </Route>
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
@@ -40,4 +45,4 @@ function App() {
 export default App;
 
 // Link: https://www.youtube.com/watch?v=A_-fn_ij59c
-// Time: 3:35:54
+// Time: 4:9:21
