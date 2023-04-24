@@ -18,6 +18,8 @@ import CreateProduct from "./pages/admin/CreateProduct";
 import Users from "./pages/admin/Users";
 import Orders from "./pages/user/Orders";
 import Profile from "./pages/user/Profile";
+import Products from "./pages/admin/Products";
+import UpdateProduct from "./pages/admin/UpdateProduct";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -40,6 +42,8 @@ function App() {
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/create-category" element={<CreateCategory />} />
             <Route path="admin/create-product" element={<CreateProduct />} />
+            <Route path="admin/products" element={<Products />} />
+            <Route path="admin/products/:slug" element={<UpdateProduct />} />
             <Route path="admin/users" element={<Users />} />
           </Route>
           <Route path="/about" element={<About />} />
@@ -55,4 +59,5 @@ function App() {
 export default App;
 
 // Link: https://www.youtube.com/watch?v=A_-fn_ij59c
-// Time: 4:9:21
+// Time: 23 => 6:54:13
+// Time: 24 => 7:48:3
