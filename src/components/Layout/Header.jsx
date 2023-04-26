@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import { SiShopify } from "react-icons/si";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
+import SearchInput from "../Form/SearchInput";
+import useCategory from "../../hooks/useCategory";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const categories = useCategory();
 
   const handleLogout = () => {
     setAuth({
@@ -17,6 +20,7 @@ const Header = () => {
     toast.success("Logout Successfull");
   };
 
+  // console.log(categories)
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -38,15 +42,44 @@ const Header = () => {
               S.Com
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchInput />
               <li className="nav-item">
                 <NavLink to="/" className="nav-link">
                   Home
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/category" className="nav-link">
-                  Category
-                </NavLink>
+                <li className="nav-item dropdown">
+                  <Link
+                    to={"/"}
+                    className="nav-link dropdown-toggle"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Category
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link
+                        to={`/categories`}
+                        className="dropdown-item"
+                      >
+                        All Categories
+                      </Link>
+                    </li>
+                    {categories?.map((category) => (
+                      <li>
+                        <Link
+                          to={`/category/${category.slug}`}
+                          className="dropdown-item"
+                        >
+                          {category.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
               </li>
               {!auth.user ? (
                 <>
@@ -74,8 +107,13 @@ const Header = () => {
                       {auth?.user?.name}
                     </a>
                     <ul className="dropdown-menu">
-                      <li >
-                        <NavLink to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`} className="dropdown-item">
+                      <li>
+                        <NavLink
+                          to={`/dashboard/${
+                            auth?.user?.role === 1 ? "admin" : "user"
+                          }`}
+                          className="dropdown-item"
+                        >
                           Dashboard
                         </NavLink>
                       </li>

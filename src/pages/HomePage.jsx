@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
+import { Link } from "react-router-dom";
 
 const prices_data = [
   {
@@ -155,7 +156,7 @@ const HomePage = () => {
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {products.length < 1 && <h5>loading...</h5>}
 
-            {products?.map(({ _id, name, description, price }) => (
+            {products?.map(({ _id, name, description, price, slug }) => (
               <div className="col" key={_id}>
                 <div className="card h-100">
                   <img
@@ -184,7 +185,7 @@ const HomePage = () => {
                   </div>
                   <div className="card-footer">
                     <small className="text-body-secondary">
-                      <button className="btn btn-primary me-3">see more</button>
+                      <Link to={`/product/${slug}`} className="btn btn-primary me-3" >see more</Link>
                       <button className="btn btn-primary">add to cart</button>
                     </small>
                   </div>

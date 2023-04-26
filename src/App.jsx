@@ -20,38 +20,48 @@ import Orders from "./pages/user/Orders";
 import Profile from "./pages/user/Profile";
 import Products from "./pages/admin/Products";
 import UpdateProduct from "./pages/admin/UpdateProduct";
+import { SearchProvider } from "./context/search";
+import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+      <SearchProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product/:slug" element={<ProductDetails />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route path="/dashboard" element={<PrivateRoute />}>
-            <Route path="user" element={<Dashboard />} />
-            <Route path="user/orders" element={<Orders />} />
-            <Route path="user/profile" element={<Profile />} />
-          </Route>
-          <Route path="/dashboard" element={<PrivetAdminroute />}>
-            <Route path="admin" element={<AdminDashboard />} />
-            <Route path="admin/create-category" element={<CreateCategory />} />
-            <Route path="admin/create-product" element={<CreateProduct />} />
-            <Route path="admin/products" element={<Products />} />
-            <Route path="admin/products/:slug" element={<UpdateProduct />} />
-            <Route path="admin/users" element={<Users />} />
-          </Route>
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/policy" element={<Policy />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/dashboard" element={<PrivateRoute />}>
+              <Route path="user" element={<Dashboard />} />
+              <Route path="user/orders" element={<Orders />} />
+              <Route path="user/profile" element={<Profile />} />
+            </Route>
+            <Route path="/dashboard" element={<PrivetAdminroute />}>
+              <Route path="admin" element={<AdminDashboard />} />
+              <Route
+                path="admin/create-category"
+                element={<CreateCategory />}
+              />
+              <Route path="admin/create-product" element={<CreateProduct />} />
+              <Route path="admin/products" element={<Products />} />
+              <Route path="admin/products/:slug" element={<UpdateProduct />} />
+              <Route path="admin/users" element={<Users />} />
+            </Route>
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/policy" element={<Policy />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </SearchProvider>
     </AuthProvider>
   );
 }
@@ -61,3 +71,5 @@ export default App;
 // Link: https://www.youtube.com/watch?v=A_-fn_ij59c
 // Time: 23 => 6:54:13
 // Time: 24 => 7:48:3
+// Time: 25 =>
+// Time: 26 => 8:26:08
