@@ -5,9 +5,11 @@ import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const categories = useCategory();
 
   const handleLogout = () => {
@@ -20,7 +22,7 @@ const Header = () => {
     toast.success("Logout Successfull");
   };
 
-  // console.log(categories)
+  console.log(cart)
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -136,7 +138,7 @@ const Header = () => {
 
               <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
-                  Cart(0)
+                  Cart({cart.length})
                 </NavLink>
               </li>
             </ul>

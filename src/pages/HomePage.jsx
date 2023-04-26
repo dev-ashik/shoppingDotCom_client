@@ -4,6 +4,8 @@ import { useAuth } from "../context/auth";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cart";
+import { toast } from "react-hot-toast";
 
 const prices_data = [
   {
@@ -50,6 +52,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [priceRange, setPriceRange] = useState([]);
+  const [cart, setCart] = useCart();
 
   // get all products
   const getAllProducts = async () => {
@@ -108,14 +111,17 @@ const HomePage = () => {
   const filterProduct = async () => {
     console.log("Filter product");
     try {
-      const { data } = await axios.post("http://localhost:8000/api/v1/product/product-filters", {
-        checked,
-        priceRange,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/product/product-filters",
+        {
+          checked,
+          priceRange,
+        }
+      );
 
       setProducts(data.products);
-    }catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -156,11 +162,11 @@ const HomePage = () => {
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {products.length < 1 && <h5>loading...</h5>}
 
-            {products?.map(({ _id, name, description, price, slug }) => (
-              <div className="col" key={_id}>
+            {products?.map((product) => (
+              <div className="col" key={product._id}>
                 <div className="card h-100">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${_id}`}
+                    src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{
@@ -171,22 +177,36 @@ const HomePage = () => {
                     }}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{name}</h5>
+                    <h5 className="card-title">{product.name}</h5>
 
-                    {description.length > 30 ? (
+                    {product.description.length > 30 ? (
                       <p className="card-text">
-                        {description.substring(0, 70)}...
+                        {product.description.substring(0, 70)}...
                       </p>
                     ) : (
-                      <p className="card-text">{description}</p>
+                      <p className="card-text">{product.description}</p>
                     )}
 
-                    <p>${price}</p>
+                    <p>${product.price}</p>
                   </div>
                   <div className="card-footer">
                     <small className="text-body-secondary">
-                      <Link to={`/product/${slug}`} className="btn btn-primary me-3" >see more</Link>
-                      <button className="btn btn-primary">add to cart</button>
+                      <Link
+                        to={`/product/${product.slug}`}
+                        className="btn btn-primary me-3"
+                      >
+                        see more
+                      </Link>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          setCart([...cart, product])
+                          localStorage.setItem('cart', JSON.stringify([...cart, product]))
+                          toast.success("Item Added")
+                        }}
+                      >
+                        add to cart
+                      </button>
                     </small>
                   </div>
                 </div>
