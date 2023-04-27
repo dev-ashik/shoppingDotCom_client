@@ -2,22 +2,25 @@ import React from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
-
+  const navigate = useNavigate();
 
   // total price
   const totalPrice = () => {
-    try{
-        let total = 0;
-        cart?.map(item => { total = total + item.price})
-        return total
-    } catch(error) {
-        console.log(error)
+    try {
+      let total = 0;
+      cart?.map((item) => {
+        total = total + item.price;
+      });
+      return total;
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   // remove Cart Item
   const removeCartItem = (pid) => {
@@ -27,7 +30,7 @@ const CartPage = () => {
 
       myCart.splice(index, 1);
       setCart(myCart);
-      localStorage.setItem('cart', JSON.stringify(myCart));
+      localStorage.setItem("cart", JSON.stringify(myCart));
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +84,46 @@ const CartPage = () => {
           <div className="col-md-4">
             <h4>Cart Summary</h4>
             <hr />
-                Total ---------- ${totalPrice()}
+            <p> Total ---------- ${totalPrice()}</p>
+            {auth?.user?.address ? (
+              <>
+                <div className="mb-3">
+                  <h4>Current address</h4>
+                  <h5>{auth?.user?.address}</h5>
+                  <Link
+                    className="btn btn-outline-warning"
+                    to={"/dashboard/user/profile"}
+                  >
+                    Updatae Address
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <div className="mb-3">
+                {auth?.token ? (
+                  <>
+                    <Link
+                      className="btn btn-outline-warning"
+                      to={"/dashboard/user/profile"}
+                    >
+                      Upadte Address
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="btn btn-outline-warning"
+                      to={"/dashboard/user/profile"}
+                      onClick={()=> navigate("/login", {
+                        state: "/cart"
+                      })}
+                    >
+                      Please Login to checkout
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
