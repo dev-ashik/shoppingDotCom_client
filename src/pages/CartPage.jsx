@@ -64,6 +64,8 @@ const CartPage = () => {
 
       if (data.success) {
         toast.success(data.message);
+        localStorage.removeItem("cart");
+        setCart([]);
         navigate('/dashboard/user/orders')
       } else {
         toast.error("something is wrong");
