@@ -22,7 +22,7 @@ const Header = () => {
     toast.success("Logout Successfull");
   };
 
-  console.log(cart)
+  // console.log(cart)
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">

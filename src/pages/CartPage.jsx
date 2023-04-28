@@ -1,26 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import { Link, useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
+  const [address, setAddress] = useState(auth?.user?.address);
+  const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();
 
-  // total price
-  const totalPrice = () => {
+  // calculate total price
+  const calculateTotalPrice = () => {
     try {
       let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
-      });
-      return total;
+      cart.map((product) => (total += product.price));
+      setTotalPrice(total);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cart]);
+
+  useEffect(() => {
+    setAddress(auth?.user?.address);
+  }, [auth]);
 
   // remove Cart Item
   const removeCartItem = (pid) => {
@@ -36,18 +48,37 @@ const CartPage = () => {
     }
   };
 
+  const handlePayNow = async (token) => {
+    // console.log(address, token, cart)
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/product/product-checkout",
+        {
+          totalPrice: totalPrice,
+          address,
+          token,
+          products: cart,
+          auth: auth
+        }
+      );
+
+      if (data.success) {
+        toast.success(data.message);
+        navigate('/dashboard/user/orders')
+      } else {
+        toast.error("something is wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something is wrong");
+    }
+  };
+
   return (
     <Layout>
       <div className="container">
         <div className="row">
           <h4>hello {auth?.token && auth?.user?.name}</h4>
-          {/* <h4>
-            {cart?.length > 1
-              ? `You have ${cart.length} items ${
-                  auth?.token ? "" : "Please login to checkout"
-                }`
-              : `You didn't add any product`}
-          </h4> */}
           {cart?.length < 1 && <h4>cart is empty</h4>}
         </div>
         <div className="row">
@@ -84,45 +115,45 @@ const CartPage = () => {
           <div className="col-md-4">
             <h4>Cart Summary</h4>
             <hr />
-            <p> Total ---------- ${totalPrice()}</p>
-            {auth?.user?.address ? (
+            <p> Total ---------- ${totalPrice}</p>
+
+            {auth?.token ? (
               <>
                 <div className="mb-3">
                   <h4>Current address</h4>
-                  <h5>{auth?.user?.address}</h5>
-                  <Link
-                    className="btn btn-outline-warning"
-                    to={"/dashboard/user/profile"}
-                  >
-                    Updatae Address
-                  </Link>
+                  <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                  <br />
+
+                  <StripeCheckout
+                    stripeKey="pk_test_51KOcnlE6mLAE4h3PUxtfXb1ZSl4sQiPAd0AFk0dWetSkd0eSfTfSKHsd8eupNzwhnK4ekgz5SP6xilxSj5de4Zdq00eRzUaBDp"
+                    label="checkout"
+                    name="Pay With Credit Card"
+                    billingAddress
+                    // shippingAddress
+                    amount={totalPrice * 100}
+                    description={`Your total is ${totalPrice}`}
+                    token={handlePayNow}
+                  />
                 </div>
               </>
             ) : (
-              <div className="mb-3">
-                {auth?.token ? (
-                  <>
-                    <Link
-                      className="btn btn-outline-warning"
-                      to={"/dashboard/user/profile"}
-                    >
-                      Upadte Address
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className="btn btn-outline-warning"
-                      to={"/dashboard/user/profile"}
-                      onClick={()=> navigate("/login", {
-                        state: "/cart"
-                      })}
-                    >
-                      Please Login to checkout
-                    </button>
-                  </>
-                )}
-              </div>
+              <>
+                <button
+                  className="btn btn-outline-warning"
+                  to={"/dashboard/user/profile"}
+                  onClick={() =>
+                    navigate("/login", {
+                      state: "/cart",
+                    })
+                  }
+                >
+                  Please Login to checkout
+                </button>
+              </>
             )}
           </div>
         </div>
