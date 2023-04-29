@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
     // toast.success('Register Successful');
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/auth/login", {
+      const res = await axios.post("https://shopping-dot-com-server.onrender.com/api/v1/auth/login", {
         email,
         password,
       });

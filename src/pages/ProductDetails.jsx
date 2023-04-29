@@ -10,7 +10,7 @@ const ProductDetails = () => {
 
     const getProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:8000/api/v1/product/products/${slug}`)
+            const { data } = await axios.get(`https://shopping-dot-com-server.onrender.com/api/v1/product/products/${slug}`)
             if(data.success) {
                 setProduct(data.product)
                 getSimilarProduct(data?.product._id, data?.product.category._id )
@@ -22,7 +22,7 @@ const ProductDetails = () => {
 
     const getSimilarProduct = async (pid, cid) => {
         try {
-            const { data } = await axios.get(`http://localhost:8000/api/v1/product//related-product/${pid}/${cid}`)
+            const { data } = await axios.get(`https://shopping-dot-com-server.onrender.com/api/v1/product//related-product/${pid}/${cid}`)
             if(data.success) {
                 setRelatedProducts(data.products)
             }
@@ -49,7 +49,7 @@ const ProductDetails = () => {
         <div className="col">
                 <div className="card h-100">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${product?._id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product?._id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{
@@ -87,7 +87,7 @@ const ProductDetails = () => {
                     relatedProducts?.map((product)=> (
                         <div key={product._id}>
                             <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${product?._id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product?._id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{

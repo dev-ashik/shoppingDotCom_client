@@ -23,7 +23,7 @@ const CreateProduct = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/category/get-categories"
+        "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
       );
       if (data.success) {
         setCategories(data?.categorys);
@@ -51,7 +51,7 @@ const CreateProduct = () => {
       productData.append("shipping", shipping)
 
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/product/create-product", productData
+        "https://shopping-dot-com-server.onrender.com/api/v1/product/create-product", productData
       );
       if (data?.success) {
         toast.success(data.message)

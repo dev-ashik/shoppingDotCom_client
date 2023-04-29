@@ -52,7 +52,7 @@ const CartPage = () => {
     // console.log(address, token, cart)
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/product/product-checkout",
+        "https://shopping-dot-com-server.onrender.com/api/v1/product/product-checkout",
         {
           totalPrice: totalPrice,
           address,
@@ -89,7 +89,7 @@ const CartPage = () => {
               <div className="row m-2 flex-row" key={product._id}>
                 <div className="col-md-4">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product._id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{

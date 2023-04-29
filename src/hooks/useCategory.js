@@ -7,7 +7,7 @@ const useCategory = () => {
     const getCategories = async() => {
         try {
             const { data } = await axios.get(
-              "http://localhost:8000/api/v1/category/get-categories"
+              "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
             );
             if (data.success) {
               setCategories(data.categorys);

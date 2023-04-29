@@ -11,7 +11,7 @@ const SearchInput = () => {
         e.preventDefault()
 
         try {
-            const {data} = await axios.get(`http://localhost:8000/api/v1/product/search/${values.keyword}`)
+            const {data} = await axios.get(`https://shopping-dot-com-server.onrender.com/api/v1/product/search/${values.keyword}`)
 
             setValues({...values, results: data});
             navigate("/search")

@@ -21,7 +21,7 @@ const Register = () => {
     // toast.success('Register Successful');
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/auth/register",
+        "https://shopping-dot-com-server.onrender.com/api/v1/auth/register",
         { name, email, password, phone, address, question }
       );
       if(res.data.success){
