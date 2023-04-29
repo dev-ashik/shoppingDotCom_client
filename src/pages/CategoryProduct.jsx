@@ -10,7 +10,7 @@ const CategoryProduct = () => {
 
     const getProduct = async () => {
         try {
-            const {data} = await axios.get(`http://localhost:8000/api/v1/product/product-category/${param.slug}`)
+            const {data} = await axios.get(`https://shopping-dot-com-server.onrender.com/api/v1/product/product-category/${param.slug}`)
 
             setProducts(data?.products);
             setCategory(data.category)
@@ -34,7 +34,7 @@ const CategoryProduct = () => {
               <div className="col" key={_id}>
                 <div className="card h-100">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${_id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${_id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{

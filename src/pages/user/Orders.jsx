@@ -9,7 +9,7 @@ const Orders = () => {
 
   const getOrders = async () => {
     const { data } = await axios.get(
-      "http://localhost:8000/api/v1/product/orders"
+      "https://shopping-dot-com-server.onrender.com/api/v1/product/orders"
     );
 
     if (data.success) {
@@ -44,7 +44,7 @@ const Orders = () => {
                       style={{ border: "1px solid black" }}
                     >
                       <img
-                        src={`http://localhost:8000/api/v1/product/product-photo/${item._id}`}
+                        src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${item._id}`}
                         className="card-img-top m-2"
                         alt="product image"
                         style={{

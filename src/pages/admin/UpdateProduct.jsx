@@ -25,7 +25,7 @@ const UpdateProduct = () => {
     const getSingleCategory = async () => {
         try {
           const { data } = await axios.get(
-            `http://localhost:8000/api/v1/product/products/${params.slug}`
+            `https://shopping-dot-com-server.onrender.com/api/v1/product/products/${params.slug}`
           );
           if (data.success) {
             const {_id, name, photo, description, price, category, quantity, shipping} = data.product
@@ -49,7 +49,7 @@ const UpdateProduct = () => {
     const getAllCategory = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/category/get-categories"
+          "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
         );
         if (data.success) {
           setCategories(data?.categorys);
@@ -78,7 +78,7 @@ const UpdateProduct = () => {
         productData.append("shipping", shipping)
   
         const { data } = await axios.put(
-          `http://localhost:8000/api/v1/product/update-product/${id}`, productData
+          `https://shopping-dot-com-server.onrender.com/api/v1/product/update-product/${id}`, productData
         );
         if (data?.success) {
           toast.success(data.message)
@@ -100,7 +100,7 @@ const UpdateProduct = () => {
             return;
         }
         const { data } = await axios.delete(
-          `http://localhost:8000/api/v1/product/delete-product/${id}`
+          `https://shopping-dot-com-server.onrender.com/api/v1/product/delete-product/${id}`
         );
         if (data?.success) {
           toast.success(data.message)
@@ -166,7 +166,7 @@ const UpdateProduct = () => {
                 ) : (
                     <div className="text-center">
                     <img
-                      src={`http://localhost:8000/api/v1/product/product-photo/${id}`}
+                      src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${id}`}
                       alt="old product photo"
                       height={"200"}
                       className="img img-responsive"

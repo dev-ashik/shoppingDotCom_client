@@ -12,7 +12,7 @@ const Products = () => {
   const getAllProduct = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/product/products"
+        "https://shopping-dot-com-server.onrender.com/api/v1/product/products"
       );
       if (data.success) {
         setProducts(data.products);
@@ -52,7 +52,7 @@ const Products = () => {
                       }}
                     >
                       <img
-                        src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
+                        src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product._id}`}
                         alt="product image"
                         style={{
                           height: "100%",

@@ -11,7 +11,7 @@ export default function PrivetAdminroute() {
   useEffect(() => {
     const authCheck = async () => {
       const res = await axios.get(
-        "http://localhost:8000/api/v1/auth/admin-auth");
+        "https://shopping-dot-com-server.onrender.com/api/v1/auth/admin-auth");
 
       if (res.data.ok) {
         setOk(true);

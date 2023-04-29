@@ -58,7 +58,7 @@ const HomePage = () => {
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/product/products"
+        "https://shopping-dot-com-server.onrender.com/api/v1/product/products"
       );
 
       if (data.success) {
@@ -73,7 +73,7 @@ const HomePage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/category/get-categories"
+        "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
       );
       if (data.success) {
         setCategories(data.categorys);
@@ -112,7 +112,7 @@ const HomePage = () => {
     console.log("Filter product");
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/product/product-filters",
+        "https://shopping-dot-com-server.onrender.com/api/v1/product/product-filters",
         {
           checked,
           priceRange,
@@ -166,7 +166,7 @@ const HomePage = () => {
               <div className="col" key={product._id}>
                 <div className="card h-100">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${product._id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product._id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{

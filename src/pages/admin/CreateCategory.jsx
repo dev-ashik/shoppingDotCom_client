@@ -19,7 +19,7 @@ const CreateCategory = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/v1/category/get-categories"
+        "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
       );
       if (data.success) {
         setCategories(data.categorys);
@@ -38,7 +38,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/v1/category/create-category",
+        "https://shopping-dot-com-server.onrender.com/api/v1/category/create-category",
         { name: categoryName }
       );
 
@@ -64,7 +64,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/v1/category/update-category/${selectedCategory._id}`,
+        `https://shopping-dot-com-server.onrender.com/api/v1/category/update-category/${selectedCategory._id}`,
         { name: updatedCategoryName }
       );
       if (data.success) {
@@ -85,7 +85,7 @@ const CreateCategory = () => {
   const handleDeleteCategory = async (category) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8000/api/v1/category/delete-category/${category._id}`
+        `https://shopping-dot-com-server.onrender.com/api/v1/category/delete-category/${category._id}`
       );
       if (data.success) {
         toast.success(data.message);

@@ -20,7 +20,7 @@ const Search = () => {
               <div className="col" key={_id}>
                 <div className="card h-100">
                   <img
-                    src={`http://localhost:8000/api/v1/product/product-photo/${_id}`}
+                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${_id}`}
                     className="card-img-top"
                     alt="product image"
                     style={{
