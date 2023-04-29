@@ -27,6 +27,7 @@ import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import { CartProvider } from "./context/cart";
 import CartPage from "./pages/CartPage";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -68,6 +69,7 @@ function App() {
                   element={<UpdateProduct />}
                 />
                 <Route path="admin/users" element={<Users />} />
+                <Route path="admin/all-product" element={<AdminOrders />} />
               </Route>
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -89,3 +91,4 @@ export default App;
 // Time: 25 =>
 // Time: 26 => 8:40:08
 // Time: 27 => 9:38:37
+// Time: 29 => 10:35:40

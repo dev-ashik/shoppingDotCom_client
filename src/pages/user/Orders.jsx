@@ -38,9 +38,11 @@ const Orders = () => {
                   className="m-2 p-2"
                   style={{ border: "1px solid black" }}
                 >
-                  {
-                  order.products.map((item) => (
-                    <Link to={`/product/${item.slug}`} style={{ border: "1px solid black" }}>
+                  {order.products.map((item) => (
+                    <Link
+                      to={`/product/${item.slug}`}
+                      style={{ border: "1px solid black" }}
+                    >
                       <img
                         src={`http://localhost:8000/api/v1/product/product-photo/${item._id}`}
                         className="card-img-top m-2"
@@ -56,8 +58,7 @@ const Orders = () => {
                       <p>Name: {item.name}</p>
                       <p>price: {item.price}</p>
                     </Link>
-                  ))
-                  }
+                  ))}
 
                   <p>address: {order.address}</p>
                   <p>payment: {order.payment}</p>
