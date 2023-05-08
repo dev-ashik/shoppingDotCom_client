@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
+import { GrCart } from "react-icons/gr";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -22,10 +23,9 @@ const Header = () => {
     toast.success("Logout Successfull");
   };
 
-  // console.log(cart)
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -39,13 +39,16 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link to="/" className="navbar-brand">
-              <SiShopify />
-              S.Com
+            <Link
+              to="/"
+              className="navbar-brand d-flex align-items-end align-items-end"
+            >
+              <SiShopify className="navbar-brand_icon" />
+              .Com
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <SearchInput />
-              <li className="nav-item">
+              <li className="nav-item ms-md-2">
                 <NavLink to="/" className="nav-link">
                   Home
                 </NavLink>
@@ -63,15 +66,12 @@ const Header = () => {
                   </Link>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link
-                        to={`/categories`}
-                        className="dropdown-item"
-                      >
+                      <Link to={`/categories`} className="dropdown-item">
                         All Categories
                       </Link>
                     </li>
-                    {categories?.map((category) => (
-                      <li>
+                    {categories?.map((category, i) => (
+                      <li key={i}>
                         <Link
                           to={`/category/${category.slug}`}
                           className="dropdown-item"
@@ -137,8 +137,12 @@ const Header = () => {
               )}
 
               <li className="nav-item">
-                <NavLink to="/cart" className="nav-link">
-                  Cart({cart.length})
+                <NavLink to="/cart" className="nav-link cart_navlink">
+                  {cart.length > 0 && (
+                    <p className="cart_navlink-selected">{cart.length}</p>
+                  )}
+
+                  <GrCart className="cart_icon" />
                 </NavLink>
               </li>
             </ul>

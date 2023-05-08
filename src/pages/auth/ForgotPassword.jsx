@@ -7,7 +7,11 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+
 const ForgotPassword = () => {
+  const [hide, setHide] = useState(true);
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [question, setQuestion] = useState("");
@@ -18,11 +22,14 @@ const ForgotPassword = () => {
     e.preventDefault();
     // toast.success('Register Successful');
     try {
-      const res = await axios.post("https://shopping-dot-com-server.onrender.com/api/v1/auth/forgot-password", {
-        email,
-        newPassword,
-        question
-      });
+      const res = await axios.post(
+        "https://shopping-dot-com-server.onrender.com/api/v1/auth/forgot-password",
+        {
+          email,
+          newPassword,
+          question,
+        }
+      );
       if (res && res.data.success) {
         toast.success(res.data.message);
         navigate("/login");
@@ -34,15 +41,21 @@ const ForgotPassword = () => {
       toast.error("Something went wrong.");
     }
   };
+
+  const handleHide = () => {
+    setHide(!hide);
+  };
   return (
     <Layout title="Forgot password">
       <div className="register text-center">
-        <h2>Reset Password</h2>
-        <form onSubmit={handleSubmit} >
+        <h5 className="second_header register_second_header mb-4">
+          Reset Password
+        </h5>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control input_field"
               id="exampleInputEmail"
               placeholder="Enter Your Email"
               value={email}
@@ -51,20 +64,26 @@ const ForgotPassword = () => {
             />
           </div>
           <div className="mb-3">
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Enter Your New Password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-            />
+            <div className="form-control shadow-none password_field_div input_field">
+              <input
+                type={hide ? "password" : "text"}
+                className="password_field"
+                id="exampleInputPassword1"
+                placeholder="Enter Your New Password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+
+              <button type="button" onClick={handleHide} className="eye_btn">
+                {hide ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </button>
+            </div>
           </div>
           <div className="mb-3">
             <input
               type="text"
-              className="form-control"
+              className="form-control input_field"
               id="exampleInputQuestion"
               placeholder="what is your favorite sports"
               value={question}
@@ -73,14 +92,11 @@ const ForgotPassword = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">
-            reset password
+          <button type="submit" className="primary_btn register_btn mt-2">
+            Reset Password
           </button>
           <div className="mt-2">
-            <Link
-              to="/login"
-              className=""
-            >
+            <Link to="/login" className="forget_password_btn">
               go to login
             </Link>
           </div>
