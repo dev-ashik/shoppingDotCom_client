@@ -7,6 +7,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 import "../../styles/AuthStyles.css";
+import { serverURL } from "../../../serverUrl";
 
 const Register = () => {
   const [hide, setHide] = useState(true);
@@ -23,7 +24,7 @@ const Register = () => {
     // toast.success('Register Successful');
     try {
       const res = await axios.post(
-        "https://shopping-dot-com-server.onrender.com/api/v1/auth/register",
+        `${serverURL}/api/v1/auth/register`,
         { name, email, password, phone, address, question }
       );
       if (res.data.success) {

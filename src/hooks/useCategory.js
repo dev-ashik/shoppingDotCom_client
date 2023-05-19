@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { serverURL } from '../../serverUrl';
 
 const useCategory = () => {
     const [categories, setCategories] = useState([]);
@@ -7,7 +8,7 @@ const useCategory = () => {
     const getCategories = async() => {
         try {
             const { data } = await axios.get(
-              "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
+              `${serverURL}/api/v1/category/get-categories`
             );
             if (data.success) {
               setCategories(data.categorys);

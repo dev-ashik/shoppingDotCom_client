@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import Layout from "../components/Layout/Layout";
 import { BsCart3 } from "react-icons/bs";
+import { serverURL } from "../../serverUrl";
 
 const prices_data = [
   {
@@ -58,7 +59,7 @@ const HomePage = () => {
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get(
-        "https://shopping-dot-com-server.onrender.com/api/v1/product/products"
+        `${serverURL}/api/v1/product/products`
       );
 
       if (data.success) {
@@ -73,7 +74,7 @@ const HomePage = () => {
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
+        `${serverURL}/api/v1/category/get-categories`
       );
       if (data.success) {
         setCategories(data.categorys);
@@ -112,7 +113,7 @@ const HomePage = () => {
     console.log("Filter product");
     try {
       const { data } = await axios.post(
-        "https://shopping-dot-com-server.onrender.com/api/v1/product/product-filters",
+        `${serverURL}/api/v1/product/product-filters`,
         {
           checked,
           priceRange,
@@ -166,7 +167,7 @@ const HomePage = () => {
               <div className="col" key={product._id}>
                 <div className="card h-100 product_cart">
                   <img
-                    src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product._id}`}
+                    src={`${serverURL}/api/v1/product/product-photo/${product._id}`}
                     className="card-img-top card_product_img"
                     alt="product image"
                   />

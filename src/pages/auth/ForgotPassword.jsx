@@ -9,6 +9,7 @@ import { useAuth } from "../../context/auth";
 
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { serverURL } from "../../../serverUrl";
 
 const ForgotPassword = () => {
   const [hide, setHide] = useState(true);
@@ -23,7 +24,7 @@ const ForgotPassword = () => {
     // toast.success('Register Successful');
     try {
       const res = await axios.post(
-        "https://shopping-dot-com-server.onrender.com/api/v1/auth/forgot-password",
+        `${serverURL}/api/v1/auth/forgot-password`,
         {
           email,
           newPassword,

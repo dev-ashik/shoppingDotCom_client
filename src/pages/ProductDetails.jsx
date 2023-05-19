@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/cart";
 import { BsCart3 } from "react-icons/bs";
+import { serverURL } from "../../serverUrl";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState([]);
@@ -14,7 +15,7 @@ const ProductDetails = () => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `https://shopping-dot-com-server.onrender.com/api/v1/product/products/${slug}`
+        `${serverURL}/api/v1/product/products/${slug}`
       );
       if (data.success) {
         setProduct(data.product);
@@ -28,7 +29,7 @@ const ProductDetails = () => {
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
-        `https://shopping-dot-com-server.onrender.com/api/v1/product//related-product/${pid}/${cid}`
+        `${serverURL}/api/v1/product//related-product/${pid}/${cid}`
       );
       if (data.success) {
         setRelatedProducts(data.products);
@@ -52,7 +53,7 @@ const ProductDetails = () => {
           <div className="row g-0">
             <div className="col-md-4">
               <img
-                src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product?._id}`}
+                src={`${serverURL}/api/v1/product/product-photo/${product?._id}`}
                 className="card-img-top"
                 alt="product image"
                 style={{
@@ -106,7 +107,7 @@ const ProductDetails = () => {
             <div className="row g-0">
               <div className="col-md-4">
                 <img
-                  src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product?._id}`}
+                  src={`${serverURL}/api/v1/product/product-photo/${product?._id}`}
                   className="card-img-top"
                   alt="product image"
                   style={{
