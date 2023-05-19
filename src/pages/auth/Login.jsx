@@ -7,7 +7,11 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+
 const Login = () => {
+  const [hide, setHide] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
@@ -19,10 +23,13 @@ const Login = () => {
     e.preventDefault();
     // toast.success('Register Successful');
     try {
-      const res = await axios.post("https://shopping-dot-com-server.onrender.com/api/v1/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://shopping-dot-com-server.onrender.com/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
       if (res && res.data.success) {
         toast.success(res.data.message);
         setAuth({
@@ -40,15 +47,21 @@ const Login = () => {
       toast.error("Something went wrong.");
     }
   };
+
+  const handleHide = () => {
+    setHide(!hide);
+  };
   return (
     <Layout title="Register">
       <div className="register text-center">
-        <h2>Login form</h2>
+        <h5 className="second_header register_second_header mb-4">
+          Login form
+        </h5>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <input
               type="email"
-              className="form-control"
+              className="form-control input_field"
               id="exampleInputEmail"
               placeholder="Enter Your Email"
               value={email}
@@ -57,25 +70,31 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Enter Your Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <div className="form-control shadow-none password_field_div">
+              <input
+                type={hide ? "password" : "text"}
+                className="password_field"
+                id="exampleInputPassword1"
+                placeholder="Enter Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <button type="button" onClick={handleHide} className="eye_btn">
+                {hide ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </button>
+            </div>
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="primary_btn register_btn mt-2">
             Login
           </button>
           <div className="mt-2">
             <Link
               to="/forgot-password"
               type="button"
-              className="btn btn-primary"
+              className="forget_password_btn"
             >
               Forgot password
             </Link>

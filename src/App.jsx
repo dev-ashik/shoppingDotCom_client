@@ -1,33 +1,37 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Policy from "./pages/Policy";
-import PageNotFound from "./pages/PageNotFound";
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
+
+// context
+import { SearchProvider } from "./context/search";
 import { AuthProvider } from "./context/auth";
-import Dashboard from "./pages/user/Dashboard";
+import { CartProvider } from "./context/cart";
+
+// pages
+import PrivetAdminroute from "./components/Routes/PrivetAdminDashboard";
 import PrivateRoute from "./components/Routes/PrivetRoutes";
 import ForgotPassword from "./pages/auth/ForgotPassword";
-import PrivetAdminroute from "./components/Routes/PrivetAdminDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CreateCategory from "./pages/admin/CreateCategory";
-import CreateProduct from "./pages/admin/CreateProduct";
-import Users from "./pages/admin/Users";
-import Orders from "./pages/user/Orders";
-import Profile from "./pages/user/Profile";
-import Products from "./pages/admin/Products";
 import UpdateProduct from "./pages/admin/UpdateProduct";
-import { SearchProvider } from "./context/search";
-import Search from "./pages/Search";
-import ProductDetails from "./pages/ProductDetails";
-import Categories from "./pages/Categories";
+import CreateProduct from "./pages/admin/CreateProduct";
 import CategoryProduct from "./pages/CategoryProduct";
-import { CartProvider } from "./context/cart";
-import CartPage from "./pages/CartPage";
+import ProductDetails from "./pages/ProductDetails";
 import AdminOrders from "./pages/admin/AdminOrders";
+import PageNotFound from "./pages/PageNotFound";
+import Dashboard from "./pages/user/Dashboard";
+import Products from "./pages/admin/Products";
+import Register from "./pages/auth/Register";
+import Categories from "./pages/Categories";
+import Profile from "./pages/user/Profile";
+import Orders from "./pages/user/Orders";
+import Users from "./pages/admin/Users";
+import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
+import Login from "./pages/auth/Login";
+import Contact from "./pages/Contact";
+import Search from "./pages/Search";
+import Policy from "./pages/Policy";
+import About from "./pages/About";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -84,11 +88,3 @@ function App() {
 }
 
 export default App;
-
-// Link: https://www.youtube.com/watch?v=A_-fn_ij59c
-// Time: 23 => 6:54:13
-// Time: 24 => 7:48:3
-// Time: 25 =>
-// Time: 26 => 8:40:08
-// Time: 27 => 9:38:37
-// Time: 29 => 10:35:40
