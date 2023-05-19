@@ -4,6 +4,7 @@ import AdminMenu from "../../components/Layout/AdminMenu";
 import axios from "axios";
 import moment from "moment/moment";
 import { toast } from "react-hot-toast";
+import { serverURL } from "../../../serverUrl";
 
 const AdminOrders = () => {
   const [allOrders, setAllOrders] = useState([]);
@@ -20,7 +21,7 @@ const AdminOrders = () => {
   const getAllOrders = async () => {
     try {
       const { data } = await axios.get(
-        "https://shopping-dot-com-server.onrender.com/api/v1/product/all-orders"
+        `${serverURL}/api/v1/product/all-orders`
       );
 
       if (data.success) {
@@ -39,7 +40,7 @@ const AdminOrders = () => {
     try {
       setLoadingStatus(true);
       const { data } = await axios.put(
-        `https://shopping-dot-com-server.onrender.com/api/v1/product/order-status-update/${orderId}`,
+        `${serverURL}/api/v1/product/order-status-update/${orderId}`,
         { status: value }
       );
 
@@ -120,7 +121,7 @@ const AdminOrders = () => {
                         <div className="row m-1 mb-2 p-3 card flex-row" key={i}>
                           <div className="col md-4">
                             <img
-                              src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${pd._id}`}
+                              src={`${serverURL}/api/v1/product/product-photo/${pd._id}`}
                               className="card-img-top m-2"
                               alt="product image"
                               style={{

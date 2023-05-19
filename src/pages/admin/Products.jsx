@@ -4,6 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import axios from "axios";
 import { HiPhotograph } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { serverURL } from "../../../serverUrl";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -12,7 +13,7 @@ const Products = () => {
   const getAllProduct = async () => {
     try {
       const { data } = await axios.get(
-        "https://shopping-dot-com-server.onrender.com/api/v1/product/products"
+        `${serverURL}/api/v1/product/products`
       );
       if (data.success) {
         setProducts(data.products);
@@ -52,7 +53,7 @@ const Products = () => {
                       }}
                     >
                       <img
-                        src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${product._id}`}
+                        src={`${serverURL}/api/v1/product/product-photo/${product._id}`}
                         alt="product image"
                         style={{
                           height: "100%",

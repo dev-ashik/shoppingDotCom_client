@@ -3,6 +3,7 @@ import { useSearch } from "../../context/search";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { HiSearch } from "react-icons/hi";
+import { serverURL } from "../../../serverUrl";
 
 const SearchInput = () => {
   const [values, setValues] = useSearch();
@@ -13,7 +14,7 @@ const SearchInput = () => {
 
     try {
       const { data } = await axios.get(
-        `https://shopping-dot-com-server.onrender.com/api/v1/product/search/${values.keyword}`
+        `${serverURL}/api/v1/product/search/${values.keyword}`
       );
 
       setValues({ ...values, results: data });

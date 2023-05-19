@@ -7,6 +7,7 @@ import { Select } from "antd";
 import { Option } from "antd/es/mentions";
 import { HiPhotograph } from "react-icons/hi";
 import { useNavigate, useParams } from "react-router-dom";
+import { serverURL } from '../../../serverUrl';
 
 const UpdateProduct = () => {
     const [categories, setCategories] = useState([]);
@@ -25,7 +26,7 @@ const UpdateProduct = () => {
     const getSingleCategory = async () => {
         try {
           const { data } = await axios.get(
-            `https://shopping-dot-com-server.onrender.com/api/v1/product/products/${params.slug}`
+            `${serverURL}/api/v1/product/products/${params.slug}`
           );
           if (data.success) {
             const {_id, name, photo, description, price, category, quantity, shipping} = data.product
@@ -49,7 +50,7 @@ const UpdateProduct = () => {
     const getAllCategory = async () => {
       try {
         const { data } = await axios.get(
-          "https://shopping-dot-com-server.onrender.com/api/v1/category/get-categories"
+          `${serverURL}/api/v1/category/get-categories`
         );
         if (data.success) {
           setCategories(data?.categorys);
@@ -78,7 +79,7 @@ const UpdateProduct = () => {
         productData.append("shipping", shipping)
   
         const { data } = await axios.put(
-          `https://shopping-dot-com-server.onrender.com/api/v1/product/update-product/${id}`, productData
+          `${serverURL}/api/v1/product/update-product/${id}`, productData
         );
         if (data?.success) {
           toast.success(data.message)
@@ -100,7 +101,7 @@ const UpdateProduct = () => {
             return;
         }
         const { data } = await axios.delete(
-          `https://shopping-dot-com-server.onrender.com/api/v1/product/delete-product/${id}`
+          `${serverURL}/api/v1/product/delete-product/${id}`
         );
         if (data?.success) {
           toast.success(data.message)
@@ -166,7 +167,7 @@ const UpdateProduct = () => {
                 ) : (
                     <div className="text-center">
                     <img
-                      src={`https://shopping-dot-com-server.onrender.com/api/v1/product/product-photo/${id}`}
+                      src={`${serverURL}/api/v1/product/product-photo/${id}`}
                       alt="old product photo"
                       height={"200"}
                       className="img img-responsive"
